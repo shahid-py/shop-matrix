@@ -22,9 +22,9 @@ function App() {
      {/* cartscreen */}
 <main>
   <Routes>
-  <Route path='/welcome' element={<HomeScreen/>} />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart" component={CartScreen} />
+  <Route path="/" element={<HomeScreen/>} />
+          <Route path="/product/:id" element={<ProductScreen/>} />
+          <Route path="/cart" element={<CartScreen/>} />
         </Routes>
       </main>
     </Router>
