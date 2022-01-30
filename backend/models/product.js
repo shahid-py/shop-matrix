@@ -1,6 +1,6 @@
 const mongoose =require("mongoose");
 
-const ProductSchema = new Schema({
+const productSchema = mongoose.Schema({
     name: {
       type: String,
       required: "Cannot add product without name",
@@ -17,13 +17,13 @@ const ProductSchema = new Schema({
      
     },
     countInStock: {
-        type: Boolean,
+        type: String,
         required: "Cannot add product without mentioning whether product is in stock or not"
       }
-    })
+    });
 
-    const Product = mongoose.model("Product", ProductSchema);
+    const Product = mongoose.model("product", productSchema);
 
 
 
-module.exports =  { Product, seedAllProducts }
+module.exports =  Product;
