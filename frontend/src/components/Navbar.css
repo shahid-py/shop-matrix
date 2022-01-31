@@ -85,7 +85,7 @@ font-family: 'Press Start 2P';
   .hamburger__menu > div {
     width: 100%;
     height: 3px;
-    background: aliceblue;
+    background: #f4f4f4;
   }
   
   @media (max-width: 960px) {
