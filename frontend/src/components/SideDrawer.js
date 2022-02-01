@@ -1,12 +1,33 @@
 import './SideDrawer.css';
+import {Link} from 'react-router-dom';
 
 const SideDrawer = ({show, click}) => {
-    const SideDrawerClass = ["sidedrawer"];
+    const sideDrawerClass = ["sidedrawer"];
 
     if (show) {
-        SideDrawerClass.push("show");
-    }
-  return  <div className={SideDrawerClass.join(" ")}></div>;
+    sideDrawerClass.push("show");
+  }
+
+  return (
+    <div className={sideDrawerClass.join(" ")}>
+      
+      <ul className="sidedrawer__links" onClick={click}>
+        <li>
+          <Link to="/cart">
+            <i className="fas fa-shopping-cart"></i>
+            <span>
+              Cart{" "}
+              <span className="sidedrawer__cartbadge">0</span>
+            </span>
+          </Link>
+        </li>
+        
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default SideDrawer;

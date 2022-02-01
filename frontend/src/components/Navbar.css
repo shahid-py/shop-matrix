@@ -10,8 +10,8 @@
     height: 106px;
 }
 .navbar__logo h2{
-    color:rgb(0, 0, 0);
-    font-size: 1.5rem;
+    color:#f4f4f4;
+    font-size: 1.4rem;
 font-family: 'Press Start 2P';
     cursor: pointer;
 }
@@ -24,12 +24,12 @@ font-family: 'Press Start 2P';
 }
 
 .navbar__links >li{
-    padding: 1.5rem;
+    padding-left: 1.5rem;
 }
 
 .navbar__links >li>a{
     text-decoration: none;
-    color: aliceblue;
+    color: #f4f4f4;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@ font-family: 'Press Start 2P';
 .cart__link:hover{
     background: #dd219e;
    transform:scale(1.2);
-   color: aliceblue;
+   color: #f4f4f4;
 }
 .home__links:hover{
     transform: scale(1.2);
