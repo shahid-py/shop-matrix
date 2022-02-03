@@ -8,7 +8,13 @@ const CartScreen = () => {
       </div>
 
       <div className="cartscreen__right">
-
+        <div className="cartscreen__info">
+          <p>subtotal(0) items</p>
+          <p>Rs 499</p>
+        </div>
+       <div>
+         <button>Proceed To Checkout</button>
+       </div>
       </div>
   </div>;
 };
