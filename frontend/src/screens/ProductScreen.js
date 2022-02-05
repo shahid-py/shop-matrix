@@ -1,28 +1,55 @@
 import './ProductScreen.css'
+import { useParams,useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
+
+
+// Actions
+import { getProductDetails } from '../redux/actions/productActions';
+import {addToCart} from '../redux/actions/cartActions';
+
 
 const ProductScreen = () => {
+
+  const history = useNavigate()
+  const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
+
+  const productDetails = useSelector((state) => state.getProductDetails);
+  const { loading, error, product } = productDetails;
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (product && id !== product._id) {
+      dispatch(getProductDetails(id));
+    }
+  }, [dispatch, product]);
+
+  const addToCartHandler =() => {
+
+    dispatch(addToCart(product._id, qty));
+    history("/cart");
+  };
   return (
     <div className="productscreen">
-      <div className="productscreen__left">
+      {loading ? <h2>loading...</h2> : error ? <h2>{error}</h2> :(
+        <>
+        <div className="productscreen__left">
         <div className="left__image">
           <img
-            src=" https://images.unsplash.com/photo-1605787020600-b9ebd5df1d07?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1463&q=80"
-            alt="product name"
+            src={product.imageUrl}
+            alt={product.name}
           />
         </div>
 
         <div className="left__info">
-          <p className="left__name">Product 1</p>
-          <p>Price:rs500</p>
+          <p className="left__name">{product.name}</p>
+          <p>Price: Rs. {product.price}/-</p>
           <p>
-            Description :Amet officia fugiat amet consequat irure do Lorem et
-            veniam. Cillum consequat sit excepteur irure dolor occaecat qui. In
-            adipisicing labore proident exercitation irure nisi exercitation
-            incididunt Lorem anim reprehenderit do. Quis non sint amet quis elit
-            fugiat officia. Nisi et aliqua sint ad dolore sunt elit aliquip est
-            consectetur consectetur dolor. Dolor sint ipsum mollit consectetur
-            pariatur ea laboris pariatur proident proident sint excepteur
-            excepteur.
+            Description:{product.description}
           </p>
         </div>
       </div>
@@ -30,25 +57,31 @@ const ProductScreen = () => {
       <div className="productscreen__right">
         <div className="right__info">
           <p>
-            Price : <span> Rs 500</span>
+            Price : <span> Rs. {product.price}/-</span>
           </p>
           <p>
-            status: <span>In stock</span>
+            status: <span>{product.countInStock > 0 ? "In Stock" : "Out of Stock"}</span>
           </p>
           <p>
-            Qty
-            <select>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </p>
+                Qty
+                <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                  {[...Array(product.countInStock).keys()].map((x) => (
+                    <option key={x + 1} value={x + 1}>
+                      {x + 1}
+                    </option>
+                  ))}
+                </select>
+              </p>
           <p>
-            <button type="button">Add to cart</button>
+          <button type="button" onClick={addToCartHandler}>
+                  Add To Cart
+                </button>
           </p>
         </div>
       </div>
+        </>
+      )};
+      
     </div>
   );
 };
