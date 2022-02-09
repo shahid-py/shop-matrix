@@ -25,12 +25,12 @@
     "body-parser": "^1.19.1",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
-    
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "mongoose": "^6.1.8",
     "nanoid": "^3.2.0",
     "razorpay": "^2.8.0",
+    "react-scripts": "^5.0.0",
     "shortid": "^2.2.16"
   }
 }
