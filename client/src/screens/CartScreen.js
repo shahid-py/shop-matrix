@@ -24,7 +24,7 @@ function loadScript(src) {
     document.body.appendChild(script);
   });
 }
-const __DEV__ =document.domain === 'localhost'
+
 
 
 
@@ -66,7 +66,7 @@ const CartScreen = () => {
     }
     const { amount, currency, orderId } = payment_response.data;
     const options = {
-      key: __DEV__ ? 'rzp_test_6nxP2p2M8T5UeD'  : 'API_NOT_AVAILABLE',
+      key: process.env.key_secret,
       currency: currency,
       amount:amount,
       order_id: orderId,
