@@ -56,7 +56,7 @@ const CartScreen = () => {
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
     
 
-    const payment_response = await axios.post(`http://localhost:5000/razorpay`,{
+    const payment_response = await axios.post(`/razorpay`,{
       amount:getCartSubTotal()
   })
 
@@ -76,7 +76,7 @@ const CartScreen = () => {
        
       handler: async function (response){
         const paymentVerification = await axios.post(
-          'http://localhost:5000/razorpay/verification',
+          `/razorpay/verification`,
           {
             orderId: orderId,
             paymentId: response.razorpay_payment_id,
