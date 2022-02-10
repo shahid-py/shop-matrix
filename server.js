@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path =require("path");
 const express = require("express");
 const productRoutes = require("./routes/productRoutes");
 const app = express();
@@ -7,7 +8,7 @@ const { nanoid } = require("nanoid");
 const Razorpay = require("razorpay");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { request } = require("http");
+
 
 //initializing db connection
 connectDB();
@@ -17,9 +18,17 @@ app.use(bodyParser.json());
 app.use("/api/products", productRoutes);
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({ message: "API running..." });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+  res.send("API running..." );
 });
+}
+
 
 /**app.use(express.static(path.join(__dirname, '/cd../frontend/build')))
 app.get('*', (req, res) => {
@@ -32,7 +41,6 @@ app.get('*', (req, res) => {
     });
 })**/
 
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
@@ -42,24 +50,26 @@ const razorpay = new Razorpay({
 });
 app.post("/razorpay", async (req, res) => {
   try {
-  
-  const {amount }= req.body;
-  
+    const { amount } = req.body;
 
-  const options = {
-    amount: amount * 100,
-    currency:'INR',
-    receipt: nanoid(),
-    
-  };
-  const response = await razorpay.orders.create(options);
-  console.log(response);
-  
-  res.json({ success: true, orderId: response.id, amount: response.amount, currency: response.currency })
-} catch (error) {
-  res.json({ success: false, errorMessage: error.message })
-}
-})
+    const options = {
+      amount: amount * 100,
+      currency: "INR",
+      receipt: nanoid(),
+    };
+    const response = await razorpay.orders.create(options);
+    console.log(response);
+
+    res.json({
+      success: true,
+      orderId: response.id,
+      amount: response.amount,
+      currency: response.currency,
+    });
+  } catch (error) {
+    res.json({ success: false, errorMessage: error.message });
+  }
+});
 
 app.post("/verification", (req, res) => {
   //do a validation
@@ -70,12 +80,8 @@ app.post("/verification", (req, res) => {
   shasum.update(`${orderId}|${paymentId}`);
   const digest = shasum.digest("hex");
   if (digest !== signature) {
-    return res.json({ success: false, message: "transaction failed!" })
+    return res.json({ success: false, message: "transaction failed!" });
   }
 
   res.json({ success: true, message: "order successfully placed!" });
-
-
 });
-
-
