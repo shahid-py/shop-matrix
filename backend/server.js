@@ -17,11 +17,11 @@ app.use(bodyParser.json());
 app.use("/api/products", productRoutes);
 app.use(express.json());
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "API running..." });
 });
 
-app.use(express.static(path.join(__dirname, '/cd../frontend/build')))
+/**app.use(express.static(path.join(__dirname, '/cd../frontend/build')))
 app.get('*', (req, res) => {
   res.sendFile(
     path.join(__dirname, 'cd..' ,'frontend','build', 'index.html'),
@@ -30,7 +30,7 @@ app.get('*', (req, res) => {
         res.status(500).send(err);
       }
     });
-})
+})**/
 
 
 const PORT = process.env.PORT || 5000;
