@@ -1,6 +1,9 @@
 .homescreen {
-    max-width: 1300px;
+    width: 100%;;
     margin:1rem auto;
+    margin-left: -200px;
+    margin-right: -100px;
+    
 }
 .homescreen__title {
     font-size: 1.5rem;
@@ -11,7 +14,9 @@
   
   .homescreen__products {
     display: grid;
+    
     grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
 
   @media (max-width: 1232px) {
@@ -28,6 +33,6 @@
   
   @media (max-width: 630px) {
     .homescreen__products {
-      grid-template-columns: repeat(1, auto);
+      grid-template-columns: 1fr;
     }
   }
