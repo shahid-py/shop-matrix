@@ -8,7 +8,7 @@ const { nanoid } = require("nanoid");
 const Razorpay = require("razorpay");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const CryptoJS = require("crypto-js");
+const Crypto = require("crypto");
 
 //initializing db connection
 connectDB();
@@ -61,11 +61,11 @@ app.post("/razorpay", async (req, res) => {
 });
 app.post("/verification", (req, res) => {
   //do a validation
-
+   
   const { orderId, paymentId, signature } = req.body;
 
-  const shasum = CryptoJS.createHmac("sha256", "9N6TTlgJHptWiVMM3eUZgayh");
-  shasum.update(`${orderId}|${paymentId}`);
+  const shasum = Crypto.createHmac("sha256","9N6TTlgJHptWiVMM3eUZgayh");
+  shasum.update(`${orderId}|${paymentId}`,);
   const digest = shasum.digest("hex");
 
   if (digest !== signature) {
