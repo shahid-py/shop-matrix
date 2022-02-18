@@ -10,11 +10,15 @@ const SideDrawer = ({show, click}) => {
   }
   const cart= useSelector(state => state.cart);
   const {cartItems} = cart;
+  const wishlist = useSelector((state) => state.wishlist);
+  const { wishlistItems } = wishlist;
 
   const getCartCount =() => {
     return cartItems.reduce((qty, item) => Number( item.qty) +qty, 0  )
   }
-
+  const getWishlistCount = () => {
+    return wishlistItems.reduce((qty, item) => Number(item.qty) + qty, 0);
+  };
   return (
     <div className={sideDrawerClass.join(" ")}>
       
@@ -25,6 +29,15 @@ const SideDrawer = ({show, click}) => {
             <span>
               Cart{" "}
               <span className="sidedrawer__cartbadge">{getCartCount()}</span>
+            </span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/wishlist">
+            <i className="fa-regular fa-bookmark"></i>
+            <span>
+              Wishlist{" "}
+              <span className="sidedrawer__cartbadge">{getWishlistCount()}</span>
             </span>
           </Link>
         </li>

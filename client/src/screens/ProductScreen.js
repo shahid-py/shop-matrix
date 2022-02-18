@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { getProductDetails } from '../redux/actions/productActions';
 import {addToCart} from '../redux/actions/cartActions';
+import { addToWishlist } from '../redux/actions/wishlistActions';
 
 
 const ProductScreen = () => {
@@ -33,6 +34,10 @@ const ProductScreen = () => {
     dispatch(addToCart(product._id, qty));
     history("/cart");
   };
+  const addToWishlistHandler =() => {
+    dispatch (addToWishlist(product._id, qty));
+    history('/wishlist')
+  }
   return (
     <div className="productscreen">
       {loading ? <h2>loading...</h2> : error ? <h2>{error}</h2> :(
@@ -74,13 +79,16 @@ const ProductScreen = () => {
               </p>
           <p>
           <button type="button" onClick={addToCartHandler}>
-                  Add To Cart
+                  ADD TO CART
+                </button>
+                <button type='button' onClick={addToWishlistHandler}>
+                  WISHLIST
                 </button>
           </p>
         </div>
       </div>
         </>
-      )};
+      )}
       
     </div>
   );

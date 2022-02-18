@@ -11,10 +11,12 @@ import Navbar from './components/Navbar';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 
+
 // Screens
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import WishlistScreen from './screens/WishlistScreen';
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
         <Route  path="/" element={<HomeScreen/>} />
           <Route  path="/product/:id" element={<ProductScreen/>} />
           <Route  path="/cart" element={<CartScreen/>} />
+          <Route path="/wishlist" element={<WishlistScreen/>}/>
         </Routes>
       </main>
     </Router>
