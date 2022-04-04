@@ -78,7 +78,7 @@ const CartScreen = () => {
 
       handler: async function (response) {
         const paymentVerification = await axios.post(
-          `http://localhost:5000/verification`,
+          `/verification`,
           {
             orderId: orderId,
             paymentId: response.razorpay_payment_id,
