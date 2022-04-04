@@ -56,7 +56,7 @@ const CartScreen = () => {
     );
 
     const payment_response = await axios.post(
-      `http://localhost:5000/razorpay`,
+      `/razorpay`,
       {
         amount: getCartSubTotal(),
       }
